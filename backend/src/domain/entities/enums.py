@@ -1,0 +1,55 @@
+from enum import StrEnum
+
+
+class UserRole(StrEnum):
+    CLIENT = "CLIENT"
+    COMMERCIAL_AGENT = "COMMERCIAL_AGENT"
+    SALES_SUPPORT = "SALES_SUPPORT"
+    ADMIN = "ADMIN"
+
+
+class QuotationStatus(StrEnum):
+    REQUESTED = "REQUESTED"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+    IN_REVIEW = "IN_REVIEW"
+
+
+class ShipmentType(StrEnum):
+    DIRECT = "DIRECT"
+    CONSOLIDATED = "CONSOLIDATED"
+
+
+class CargoStatus(StrEnum):
+    CREATED = "CREATED"
+    DOCUMENT_REVIEW = "DOCUMENT_REVIEW"
+    IN_TRANSIT = "IN_TRANSIT"
+    ARRIVED = "ARRIVED"
+    RELEASED = "RELEASED"
+
+
+class DocumentType(StrEnum):
+    MBL = "MBL"
+    HBL = "HBL"
+    INVOICE = "INVOICE"
+    QUOTATION = "QUOTATION"
+    LOGISTICS_GUIDE = "LOGISTICS_GUIDE"
+    REPORT = "REPORT"
+    DRAFT = "DRAFT"
+    RECEIPT = "RECEIPT"
+    SHIPMENT_SUMMARY = "SHIPMENT_SUMMARY"
+    EXTERNAL_PDF = "EXTERNAL_PDF"
+
+
+class DocumentStatus(StrEnum):
+    UPLOADED = "UPLOADED"
+    OCR_PENDING = "OCR_PENDING"
+    OCR_PROCESSED = "OCR_PROCESSED"
+    VALIDATED = "VALIDATED"
+    GENERATED = "GENERATED"
+
+
+class NotificationStatus(StrEnum):
+    PENDING = "PENDING"
+    SENT = "SENT"
+    FAILED = "FAILED"

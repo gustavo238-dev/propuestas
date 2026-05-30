@@ -1,0 +1,90 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: importaciones_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: imports_db
+      POSTGRES_USER: imports
+      POSTGRES_PASSWORD: imports
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U imports -d imports_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    container_name: importaciones_backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://imports:imports@postgres:5432/imports_db
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET_KEY: change-me-in-production
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      ALLOWED_ORIGINS: '["http://localhost:3000"]'
+      STORAGE_ROOT: /app/storage
+      LOG_LEVEL: INFO
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+    command: >
+      sh -c "python -m src.infrastructure.database.init_db
+      && uvicorn src.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./storage:/app/storage:rw
+      - ./logs:/app/logs:rw
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  backend-test:
+    build:
+      context: ./backend
+      args:
+        INSTALL_DEV: "true"
+    container_name: importaciones_backend_test
+    environment:
+      DATABASE_URL: sqlite://
+      JWT_SECRET_KEY: test-secret
+      ALLOWED_ORIGINS: '["http://localhost:3000"]'
+      STORAGE_ROOT: /tmp/importaciones-tests
+    command: python -m pytest tests -q
+    profiles:
+      - test
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: importaciones_frontend
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8000/api/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  redis:
+    image: redis:7-alpine
+    container_name: importaciones_redis
+    ports:
+      - "6379:6379"
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: importaciones_mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  postgres_data:
+  redis_data:

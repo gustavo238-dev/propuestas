@@ -1,0 +1,35 @@
+[project]
+name = "importaciones-maritimas-backend"
+version = "0.1.0"
+description = "Backend empresarial para gestion de importaciones maritimas"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi==0.115.6",
+  "uvicorn[standard]==0.34.0",
+  "sqlalchemy==2.0.36",
+  "psycopg[binary]==3.2.3",
+  "pydantic==2.10.4",
+  "pydantic-settings==2.7.0",
+  "python-jose[cryptography]==3.3.0",
+  "passlib[bcrypt]==1.7.4",
+  "python-multipart==0.0.20",
+  "pdfplumber==0.11.5",
+  "pytesseract==0.3.13",
+  "opencv-python-headless==4.10.0.84",
+  "reportlab==4.2.5",
+  "openpyxl==3.1.5",
+  "email-validator==2.2.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.3.4",
+  "httpx==0.28.1"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
