@@ -42,7 +42,7 @@ type Quotation = {
   destination: string;
   cargo: string;
   incoterm: string;
-  status: "Solicitada" | "Aprobada" | "Rechazada";
+  status: "Solicitada" | "En revision" | "Aprobada" | "Rechazada" | "Vencida";
 };
 
 type ApiClient = {
@@ -61,7 +61,7 @@ type ApiQuotation = {
   destination_port: string;
   cargo_description: string;
   incoterm: string;
-  status: "REQUESTED" | "IN_REVIEW" | "APPROVED" | "REJECTED";
+  status: "REQUESTED" | "IN_REVIEW" | "APPROVED" | "REJECTED" | "EXPIRED";
 };
 
 type ApiShipment = {
@@ -86,7 +86,7 @@ type ApiDocument = {
   document_type: string;
   file_name: string;
   storage_path: string;
-  status: "UPLOADED" | "OCR_PENDING" | "OCR_PROCESSED" | "VALIDATED" | "GENERATED";
+  status: "UPLOADED" | "OCR_PENDING" | "OCR_PROCESSED" | "VALIDATED" | "REJECTED" | "GENERATED";
   created_at: string;
 };
 
@@ -128,7 +128,9 @@ const statusLabel: Record<Shipment["status"], string> = {
   DOCUMENT_REVIEW: "Revision documental",
   IN_TRANSIT: "En transito",
   ARRIVED: "Arribado",
-  RELEASED: "Liberado"
+  NATIONALIZATION: "Nacionalizacion",
+  RELEASED: "Liberado",
+  CLOSED: "Cerrado"
 };
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api/v1";
@@ -137,9 +139,10 @@ function mapQuotation(item: ApiQuotation, clients: ApiClient[]): Quotation {
   const client = clients.find((current) => current.id === item.client_id);
   const statusMap: Record<ApiQuotation["status"], Quotation["status"]> = {
     REQUESTED: "Solicitada",
-    IN_REVIEW: "Solicitada",
+    IN_REVIEW: "En revision",
     APPROVED: "Aprobada",
-    REJECTED: "Rechazada"
+    REJECTED: "Rechazada",
+    EXPIRED: "Vencida"
   };
   return {
     id: item.id,
@@ -177,6 +180,7 @@ function mapDocument(item: ApiDocument): DocumentItem {
     OCR_PENDING: "OCR pendiente",
     OCR_PROCESSED: "OCR procesado",
     VALIDATED: "Validado",
+    REJECTED: "Rechazado",
     GENERATED: "Generado"
   };
   return {

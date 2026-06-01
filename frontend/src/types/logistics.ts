@@ -1,4 +1,11 @@
-export type ShipmentStatus = "CREATED" | "DOCUMENT_REVIEW" | "IN_TRANSIT" | "ARRIVED" | "RELEASED";
+export type ShipmentStatus =
+  | "CREATED"
+  | "DOCUMENT_REVIEW"
+  | "IN_TRANSIT"
+  | "ARRIVED"
+  | "NATIONALIZATION"
+  | "RELEASED"
+  | "CLOSED";
 
 export type Shipment = {
   id: string;
@@ -20,7 +27,7 @@ export type DocumentItem = {
   name: string;
   type: string;
   shipment: string;
-  status: "OCR pendiente" | "OCR procesado" | "Validado" | "Generado";
+  status: "OCR pendiente" | "OCR procesado" | "Validado" | "Rechazado" | "Generado";
   updatedAt: string;
   downloadUrl?: string;
 };

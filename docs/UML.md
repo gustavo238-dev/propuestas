@@ -51,3 +51,28 @@ flowchart TD
   J --> K[Notificacion cliente]
   K --> L[Exportacion XLSX]
 ```
+
+## Estados de embarque
+
+```mermaid
+stateDiagram-v2
+  [*] --> CREATED
+  CREATED --> DOCUMENT_REVIEW
+  DOCUMENT_REVIEW --> IN_TRANSIT
+  IN_TRANSIT --> ARRIVED
+  ARRIVED --> NATIONALIZATION
+  NATIONALIZATION --> RELEASED
+  RELEASED --> CLOSED
+```
+
+## Estados documentales
+
+```mermaid
+stateDiagram-v2
+  [*] --> UPLOADED
+  UPLOADED --> OCR_PENDING
+  OCR_PENDING --> OCR_PROCESSED
+  OCR_PROCESSED --> VALIDATED
+  OCR_PROCESSED --> REJECTED
+  VALIDATED --> GENERATED
+```

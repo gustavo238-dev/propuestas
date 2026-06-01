@@ -51,6 +51,13 @@ Base path: `/api/v1`
 - `GET /documents/{document_id}/ocr`
 - `POST /documents/{document_id}/ocr/validate`
 
+Validaciones esperadas:
+
+- La carga debe sanitizar el nombre del archivo.
+- La descarga debe responder 404 si el documento no existe o si el archivo ya no esta en storage.
+- El OCR debe guardar texto bruto, datos extraidos, confianza y estado de validacion.
+- La validacion OCR debe cambiar el documento a estado `VALIDATED`.
+
 ## PDFs, reportes y exportacion
 
 - `POST /exports/shipments/xlsx`
@@ -68,3 +75,11 @@ Base path: `/api/v1`
 - `GET /notifications`
 - `POST /notifications/send`
 - `GET /notifications/history`
+
+## Auditoria sugerida
+
+- `GET /audit/events`
+- `GET /audit/events?entity_name=shipments&entity_id={id}`
+- `GET /audit/events?user_id={id}`
+
+Estos endpoints quedan como mejora recomendada para trazabilidad avanzada.

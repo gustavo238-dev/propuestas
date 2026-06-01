@@ -10,9 +10,10 @@ class UserRole(StrEnum):
 
 class QuotationStatus(StrEnum):
     REQUESTED = "REQUESTED"
+    IN_REVIEW = "IN_REVIEW"
     APPROVED = "APPROVED"
     REJECTED = "REJECTED"
-    IN_REVIEW = "IN_REVIEW"
+    EXPIRED = "EXPIRED"
 
 
 class ShipmentType(StrEnum):
@@ -25,7 +26,9 @@ class CargoStatus(StrEnum):
     DOCUMENT_REVIEW = "DOCUMENT_REVIEW"
     IN_TRANSIT = "IN_TRANSIT"
     ARRIVED = "ARRIVED"
+    NATIONALIZATION = "NATIONALIZATION"
     RELEASED = "RELEASED"
+    CLOSED = "CLOSED"
 
 
 class DocumentType(StrEnum):
@@ -46,6 +49,7 @@ class DocumentStatus(StrEnum):
     OCR_PENDING = "OCR_PENDING"
     OCR_PROCESSED = "OCR_PROCESSED"
     VALIDATED = "VALIDATED"
+    REJECTED = "REJECTED"
     GENERATED = "GENERATED"
 
 
@@ -53,3 +57,4 @@ class NotificationStatus(StrEnum):
     PENDING = "PENDING"
     SENT = "SENT"
     FAILED = "FAILED"
+    RETRIED = "RETRIED"

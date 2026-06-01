@@ -33,6 +33,17 @@ erDiagram
 - is_active
 - created_at
 
+### audit_events
+
+- id UUID PK
+- user_id FK users nullable
+- entity_name
+- entity_id
+- action
+- previous_values JSONB nullable
+- new_values JSONB nullable
+- created_at
+
 ### companies
 
 - id UUID PK
@@ -77,6 +88,8 @@ erDiagram
 - created_at
 - decided_at
 
+Estados permitidos: `REQUESTED`, `IN_REVIEW`, `APPROVED`, `REJECTED`, `EXPIRED`.
+
 ### shipments
 
 - id UUID PK
@@ -93,6 +106,8 @@ erDiagram
 - cargo_status
 - goods_description
 - created_at
+
+Estados permitidos: `CREATED`, `DOCUMENT_REVIEW`, `IN_TRANSIT`, `ARRIVED`, `NATIONALIZATION`, `RELEASED`, `CLOSED`.
 
 ### hbls
 
@@ -123,6 +138,8 @@ erDiagram
 - status
 - uploaded_by_id FK users
 - created_at
+
+Estados permitidos: `UPLOADED`, `OCR_PENDING`, `OCR_PROCESSED`, `VALIDATED`, `REJECTED`, `GENERATED`.
 
 ### ocr_extractions
 
@@ -156,6 +173,8 @@ erDiagram
 - status
 - sent_at
 - created_at
+
+Estados permitidos: `PENDING`, `SENT`, `FAILED`, `RETRIED`.
 
 ### invoices
 

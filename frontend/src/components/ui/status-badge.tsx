@@ -5,7 +5,9 @@ const statusLabels: Record<ShipmentStatus, string> = {
   DOCUMENT_REVIEW: "Revision documental",
   IN_TRANSIT: "En transito",
   ARRIVED: "Arribado",
-  RELEASED: "Liberado"
+  NATIONALIZATION: "Nacionalizacion",
+  RELEASED: "Liberado",
+  CLOSED: "Cerrado"
 };
 
 const statusClasses: Record<ShipmentStatus, string> = {
@@ -13,7 +15,9 @@ const statusClasses: Record<ShipmentStatus, string> = {
   DOCUMENT_REVIEW: "bg-amber-100 text-amber-800",
   IN_TRANSIT: "bg-sky-100 text-sky-800",
   ARRIVED: "bg-teal-100 text-teal-800",
-  RELEASED: "bg-emerald-100 text-emerald-800"
+  NATIONALIZATION: "bg-violet-100 text-violet-800",
+  RELEASED: "bg-emerald-100 text-emerald-800",
+  CLOSED: "bg-slate-200 text-slate-800"
 };
 
 export function StatusBadge({ status }: { status: ShipmentStatus }) {

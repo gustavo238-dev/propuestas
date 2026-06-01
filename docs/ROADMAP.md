@@ -39,3 +39,19 @@
 - Observabilidad operativa.
 - Optimizacion de consultas.
 - Politicas de auditoria y retencion documental.
+
+## Fase 7 - Gobierno de requerimientos
+
+- Matriz de trazabilidad completa entre requerimientos, historias, endpoints, pantallas y pruebas.
+- Criterios de aceptacion por historia de usuario.
+- Catalogo de reglas de negocio versionado.
+- Control de cambios de alcance.
+- Priorizacion MoSCoW: obligatorio, deberia tener, podria tener, fuera de alcance.
+
+## Fase 8 - Seguridad y auditoria avanzada
+
+- Permisos por accion y no solo por modulo.
+- Bitacora de cambios por usuario, entidad y fecha.
+- Politicas de retencion documental.
+- Recuperacion de contrasena y bloqueo por intentos fallidos.
+- Configuracion productiva con HTTPS, secretos seguros y respaldos programados.

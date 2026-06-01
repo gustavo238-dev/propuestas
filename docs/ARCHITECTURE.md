@@ -35,6 +35,25 @@ src/
 - Notificaciones.
 - Auditoria operativa y trazabilidad.
 
+## Reglas de organizacion
+
+- Los routers HTTP viven en `presentation/api/routes`.
+- Los casos de uso viven en `application/use_cases`.
+- Los puertos de servicios externos viven en `application/ports`.
+- Los adaptadores concretos viven en `infrastructure`.
+- Los repositorios concretos viven en `infrastructure/repositories`.
+- Las entidades, enums y reglas centrales viven en `domain`.
+
+## Trazabilidad tecnica
+
+Cada requerimiento funcional debe poder relacionarse con:
+
+- Un caso de uso en `docs/REQUIREMENTS.md`.
+- Un endpoint en `docs/API_REST.md`.
+- Una pantalla o componente frontend.
+- Un modelo o entidad persistente.
+- Una prueba automatizada o evidencia manual.
+
 ## Flujo principal
 
 Cliente solicita cotizacion. El agente comercial revisa y gestiona la solicitud. Al recibir documentos de naviera, Sales Support carga PDFs, el sistema ejecuta OCR, extrae datos logisticos, permite validacion manual y almacena la informacion. Luego el embarque queda disponible para tracking, generacion documental, notificacion al cliente y exportacion XLSX.
