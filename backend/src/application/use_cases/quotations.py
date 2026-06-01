@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.application.dto.schemas import QuotationCreate
 from src.domain.entities.enums import QuotationStatus
-from src.infrastructure.database.models import QuotationModel
+from src.infrastructure.database.models import ClientModel, QuotationModel
 
 
 class QuotationUseCases:
@@ -13,6 +13,10 @@ class QuotationUseCases:
         self.db = db
 
     def create(self, payload: QuotationCreate, requested_by_id: UUID | None = None) -> QuotationModel:
+        client = self.db.get(ClientModel, payload.client_id)
+        if client is None:
+            raise ValueError("Cliente no encontrado para la cotizacion")
+
         quotation = QuotationModel(**payload.model_dump(), requested_by_id=requested_by_id)
         self.db.add(quotation)
         self.db.commit()

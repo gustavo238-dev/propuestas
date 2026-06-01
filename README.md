@@ -55,22 +55,42 @@ Frontend: `http://localhost:3000`
 ## Flujo documental operativo
 
 1. Abrir `http://localhost:3000`.
-2. Entrar a `Documentos`.
-3. Cargar un PDF con `Cargar PDF`.
-4. Seleccionar el documento en el historial.
-5. Revisar el PDF en el visor embebido.
-6. Ejecutar `OCR`.
-7. Comparar los campos extraidos contra el PDF visible.
-8. Usar `Crear factura` para generar una factura PDF almacenada.
-9. Seleccionar la factura generada en el historial y descargarla o visualizarla.
+2. Iniciar sesion con `admin@empresa-logistica.com` / `Admin123*`.
+3. Crear o revisar clientes, empresas, cotizaciones y embarques.
+4. Entrar a `Documentos`.
+5. Cargar un PDF con `Cargar PDF`.
+6. Seleccionar el documento en el historial.
+7. Revisar el PDF en el visor embebido.
+8. Ejecutar `OCR`.
+9. Comparar los campos extraidos contra el PDF visible.
+10. Exportar OCR a XLSX si se requiere.
+11. Usar `Crear factura` para generar una factura PDF almacenada.
+12. Seleccionar la factura generada en el historial y descargarla o visualizarla.
+13. Enviar notificacion desde `Enviar` y revisar el historial.
 
 Endpoints involucrados:
 
+- `POST /api/v1/auth/login`
+- `GET /api/v1/auth/me`
+- `GET /api/v1/clients`
+- `POST /api/v1/clients`
+- `GET /api/v1/companies`
+- `POST /api/v1/companies`
+- `GET /api/v1/quotations`
+- `POST /api/v1/quotations`
+- `POST /api/v1/quotations/{quotation_id}/approve`
+- `POST /api/v1/quotations/{quotation_id}/reject`
+- `GET /api/v1/shipments`
+- `POST /api/v1/shipments`
 - `POST /api/v1/documents/upload`
 - `GET /api/v1/documents/{document_id}/download`
 - `POST /api/v1/documents/{document_id}/ocr`
 - `GET /api/v1/documents/{document_id}/ocr`
 - `POST /api/v1/pdf/invoices/store`
+- `POST /api/v1/exports/shipments/xlsx`
+- `POST /api/v1/exports/documents/pdf-to-xlsx`
+- `GET /api/v1/notifications`
+- `POST /api/v1/notifications/send`
 
 ## Pruebas unitarias
 

@@ -64,7 +64,10 @@ def download_document(document_id: UUID, db: Session = Depends(get_db)) -> FileR
     if not path.exists():
         raise HTTPException(status_code=404, detail="Archivo no encontrado en storage")
 
-    return FileResponse(path, media_type="application/pdf", filename=document.file_name)
+    response = FileResponse(path, media_type="application/pdf")
+    # Prefer inline disposition so browsers can render the PDF inside iframes
+    response.headers["Content-Disposition"] = f'inline; filename="{document.file_name}"'
+    return response
 
 
 @router.get("/{document_id}/ocr", response_model=OcrExtractionRead)

@@ -12,8 +12,11 @@ router = APIRouter()
 
 
 @router.get("", response_model=list[ClientRead])
-def list_clients(db: Session = Depends(get_db)) -> list[ClientModel]:
-    return list(db.scalars(select(ClientModel).order_by(ClientModel.created_at.desc())))
+def list_clients(email: str | None = None, db: Session = Depends(get_db)) -> list[ClientModel]:
+    statement = select(ClientModel)
+    if email:
+        statement = statement.where(ClientModel.email == email)
+    return list(db.scalars(statement.order_by(ClientModel.created_at.desc())))
 
 
 @router.post("", response_model=ClientRead, status_code=status.HTTP_201_CREATED)
